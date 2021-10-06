@@ -6,8 +6,8 @@ import (
 
 // TabsSpaces contains all info needed about tabs and spaces for a file
 type TabsSpaces struct {
-	perTab int  // number of spaces per tab/indentation
-	spaces bool // use spaces, or tabs?
+	PerTab int  // number of spaces per tab/indentation
+	Spaces bool // use spaces, or tabs?
 }
 
 var DefaultTabsSpaces = TabsSpaces{4, true}
@@ -26,11 +26,11 @@ func (m Mode) Spaces() bool {
 	for k, vs := range languageIndentation {
 		for _, v := range vs {
 			if v == m {
-				return k.spaces
+				return k.Spaces
 			}
 		}
 	}
-	return DefaultTabsSpaces.spaces
+	return DefaultTabsSpaces.Spaces
 }
 
 // TabsSpaces tries to return the appropriate settings for tabs and spaces as a TabsSpaces struct
@@ -47,13 +47,13 @@ func (m Mode) TabsSpaces() TabsSpaces {
 
 // String returns the string for one indentation
 func (ts TabsSpaces) String() string {
-	if !ts.spaces {
+	if !ts.Spaces {
 		return "\t"
 	}
-	return strings.Repeat(" ", ts.perTab)
+	return strings.Repeat(" ", ts.PerTab)
 }
 
 // WSLen will count the length of the given whitespace string, in terms of spaces
 func (ts TabsSpaces) WSLen(whitespaceString string) int {
-	return strings.Count(whitespaceString, "\t")*ts.perTab + strings.Count(whitespaceString, " ")
+	return strings.Count(whitespaceString, "\t")*ts.PerTab + strings.Count(whitespaceString, " ")
 }

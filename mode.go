@@ -11,56 +11,56 @@ type Mode int
 const (
 	// Mode "enum" values
 	Blank          = iota
-	Git            // for git commits and interactive rebases
-	Markdown       // for Markdown (and asciidoctor and rst files)
-	Makefile       // for Makefiles
-	Shell          // for shell scripts and PKGBUILD files
-	Config         // for yml, toml, and ini files etc
-	Assembly       // for Assembly
-	GoAssembly     // for Go-style Assembly
-	Go             // for Go
-	Haskell        // for Haskell
-	OCaml          // for OCaml
-	StandardML     // for Standard ML
-	Python         // for Python
-	Text           // for plain text documents
-	CMake          // for CMake files
-	Vim            // for Vim or NeoVim configuration, or .vim scripts
-	V              // the V programming language
-	Clojure        // for Clojure
-	Lisp           // for Common Lisp and Emacs Lisp
-	Zig            // for Zig
-	Kotlin         // for Kotlin
-	Java           // for Java
-	HIDL           // for the Android-related Hardware Abstraction Layer Interface Definition Language
-	SQL            // for Structured Query Language
-	Oak            // for Oak
-	Rust           // for Rust
-	Lua            // for Lua
-	Crystal        // for Crystal
-	Nim            // for Nim
-	ObjectPascal   // for Object Pascal and Delphi
-	Bat            // for DOS batch files
-	Cpp            // for C++
-	C              // for C
-	Ada            // for Ada
-	HTML           // for HTML
-	Odin           // for Odin
-	XML            // for XML
-	PolicyLanguage // for SE Linux configuration files
-	Nroff          // for editing man pages
-	Scala          // for Scala
-	JSON           // for JSON and iPython notebooks
-	Battlestar     // for Battlestar
-	CS             // for C#
-	JavaScript     // for JavaScript
-	TypeScript     // for TypeScript
-	ManPage        // for viewing man pages
-	Amber          // for Amber templates
-	Bazel          // for Bazel and Starlark
-	D              // for D
-	Perl           // for Perl
-	M4             // for M4 macros
+	Git            // Git commits and interactive rebases
+	Markdown       // Markdown (and asciidoctor and rst files)
+	Makefile       // Makefiles
+	Shell          // Shell scripts and PKGBUILD files
+	Config         // Config like yaml, yml, toml, and ini files
+	Assembly       // Assembly
+	GoAssembly     // Go-style Assembly
+	Go             // Go
+	Haskell        // Haskell
+	OCaml          // OCaml
+	StandardML     // Standard ML
+	Python         // Python
+	Text           // plain text documents
+	CMake          // CMake files
+	Vim            // Vim or NeoVim configuration, or .vim scripts
+	V              // V programming language
+	Clojure        // Clojure
+	Lisp           // Common Lisp and Emacs Lisp
+	Zig            // Zig
+	Kotlin         // Kotlin
+	Java           // Java
+	HIDL           // the Android-related Hardware Abstraction Layer Interface Definition Language
+	SQL            // Structured Query Language
+	Oak            // Oak
+	Rust           // Rust
+	Lua            // Lua
+	Crystal        // Crystal
+	Nim            // Nim
+	ObjectPascal   // Object Pascal and Delphi
+	Bat            // DOS batch files
+	Cpp            // C++
+	C              // C
+	Ada            // Ada
+	HTML           // HTML
+	Odin           // Odin
+	XML            // XML
+	PolicyLanguage // SE Linux configuration files
+	Nroff          // editing man pages
+	Scala          // Scala
+	JSON           // JSON and iPython notebooks
+	Battlestar     // Battlestar
+	CS             // C#
+	JavaScript     // JavaScript
+	TypeScript     // TypeScript
+	ManPage        // viewing man pages
+	Amber          // Amber templates
+	Bazel          // Bazel and Starlark
+	D              // D
+	Perl           // Perl
+	M4             // M4 macros
 )
 
 // Detect looks at the filename and tries to guess what could be an appropriate editor mode.

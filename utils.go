@@ -1,4 +1,4 @@
-package editormode
+package mode
 
 // hasS checks if the given string slice contains the given string
 func hasS(sl []string, s string) bool {

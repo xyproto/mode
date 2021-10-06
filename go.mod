@@ -1,3 +1,3 @@
-module github.com/xyproto/editormode
+module github.com/xyproto/mode
 
-go 1.17
+go 1.14

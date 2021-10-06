@@ -26,8 +26,6 @@ func DetectFromContents(firstLine string, getAllText func() string) Mode {
 	} else if strings.HasPrefix(firstLine, "# $") {
 		// Most likely a csh script on FreeBSD
 		m = Shell
-	} else if strings.HasPrefix(firstLine, "#") {
-		//setFirstLineHash = true
 	} else if strings.HasPrefix(firstLine, "<?xml ") {
 		m = XML
 	} else if strings.Contains(firstLine, "-*- nroff -*-") {

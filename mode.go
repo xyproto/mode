@@ -1,4 +1,4 @@
-package editormode
+package mode
 
 import (
 	"path/filepath"
@@ -10,57 +10,57 @@ type Mode int
 
 const (
 	// Mode "enum" values
-	ModeBlank          = iota
-	ModeGit            // for git commits and interactive rebases
-	ModeMarkdown       // for Markdown (and asciidoctor and rst files)
-	ModeMakefile       // for Makefiles
-	ModeShell          // for shell scripts and PKGBUILD files
-	ModeConfig         // for yml, toml, and ini files etc
-	ModeAssembly       // for Assembly
-	ModeGoAssembly     // for Go-style Assembly
-	ModeGo             // for Go
-	ModeHaskell        // for Haskell
-	ModeOCaml          // for OCaml
-	ModeStandardML     // for Standard ML
-	ModePython         // for Python
-	ModeText           // for plain text documents
-	ModeCMake          // for CMake files
-	ModeVim            // for Vim or NeoVim configuration, or .vim scripts
-	ModeV              // the V programming language
-	ModeClojure        // for Clojure
-	ModeLisp           // for Common Lisp and Emacs Lisp
-	ModeZig            // for Zig
-	ModeKotlin         // for Kotlin
-	ModeJava           // for Java
-	ModeHIDL           // for the Android-related Hardware Abstraction Layer Interface Definition Language
-	ModeSQL            // for Structured Query Language
-	ModeOak            // for Oak
-	ModeRust           // for Rust
-	ModeLua            // for Lua
-	ModeCrystal        // for Crystal
-	ModeNim            // for Nim
-	ModeObjectPascal   // for Object Pascal and Delphi
-	ModeBat            // for DOS batch files
-	ModeCpp            // for C++
-	ModeC              // for C
-	ModeAda            // for Ada
-	ModeHTML           // for HTML
-	ModeOdin           // for Odin
-	ModeXML            // for XML
-	ModePolicyLanguage // for SE Linux configuration files
-	ModeNroff          // for editing man pages
-	ModeScala          // for Scala
-	ModeJSON           // for JSON and iPython notebooks
-	ModeBattlestar     // for Battlestar
-	ModeCS             // for C#
-	ModeJavaScript     // for JavaScript
-	ModeTypeScript     // for TypeScript
-	ModeManPage        // for viewing man pages
-	ModeAmber          // for Amber templates
-	ModeBazel          // for Bazel and Starlark
-	ModeD              // for D
-	ModePerl           // for Perl
-	ModeM4             // for M4 macros
+	Blank          = iota
+	Git            // for git commits and interactive rebases
+	Markdown       // for Markdown (and asciidoctor and rst files)
+	Makefile       // for Makefiles
+	Shell          // for shell scripts and PKGBUILD files
+	Config         // for yml, toml, and ini files etc
+	Assembly       // for Assembly
+	GoAssembly     // for Go-style Assembly
+	Go             // for Go
+	Haskell        // for Haskell
+	OCaml          // for OCaml
+	StandardML     // for Standard ML
+	Python         // for Python
+	Text           // for plain text documents
+	CMake          // for CMake files
+	Vim            // for Vim or NeoVim configuration, or .vim scripts
+	V              // the V programming language
+	Clojure        // for Clojure
+	Lisp           // for Common Lisp and Emacs Lisp
+	Zig            // for Zig
+	Kotlin         // for Kotlin
+	Java           // for Java
+	HIDL           // for the Android-related Hardware Abstraction Layer Interface Definition Language
+	SQL            // for Structured Query Language
+	Oak            // for Oak
+	Rust           // for Rust
+	Lua            // for Lua
+	Crystal        // for Crystal
+	Nim            // for Nim
+	ObjectPascal   // for Object Pascal and Delphi
+	Bat            // for DOS batch files
+	Cpp            // for C++
+	C              // for C
+	Ada            // for Ada
+	HTML           // for HTML
+	Odin           // for Odin
+	XML            // for XML
+	PolicyLanguage // for SE Linux configuration files
+	Nroff          // for editing man pages
+	Scala          // for Scala
+	JSON           // for JSON and iPython notebooks
+	Battlestar     // for Battlestar
+	CS             // for C#
+	JavaScript     // for JavaScript
+	TypeScript     // for TypeScript
+	ManPage        // for viewing man pages
+	Amber          // for Amber templates
+	Bazel          // for Bazel and Starlark
+	D              // for D
+	Perl           // for Perl
+	M4             // for M4 macros
 )
 
 // Detect looks at the filename and tries to guess what could be an appropriate editor mode.
@@ -84,135 +84,135 @@ func Detect(filename string) (Mode, bool) {
 			!strings.Contains(baseFilename, ".") &&
 			strings.Count(baseFilename, "-") >= 2):
 		// Git mode
-		mode = ModeGit
+		mode = Git
 	case ext == ".vimrc" || ext == ".vim" || ext == ".nvim":
-		mode = ModeVim
+		mode = Vim
 	case strings.HasPrefix(baseFilename, "Makefile") || strings.HasPrefix(baseFilename, "makefile") || baseFilename == "GNUmakefile":
 		// NOTE: This one MUST come before the ext == "" check below!
-		mode = ModeMakefile
+		mode = Makefile
 	case strings.HasSuffix(filename, ".git/config") || ext == ".ini" || ext == ".cfg" || ext == ".conf" || ext == ".service" || ext == ".target" || ext == ".socket" || strings.HasPrefix(ext, "rc"):
 		fallthrough
 	case ext == ".yml" || ext == ".toml" || ext == ".ini" || ext == ".bp" || strings.HasSuffix(filename, ".git/config") || (ext == "" && (strings.HasSuffix(baseFilename, "file") || strings.HasSuffix(baseFilename, "rc") || hasS(configFilenames, baseFilename))):
-		mode = ModeConfig
+		mode = Config
 	case ext == ".sh" || ext == ".ksh" || ext == ".tcsh" || ext == ".bash" || ext == ".zsh" || ext == ".local" || ext == ".profile" || baseFilename == "PKGBUILD" || (strings.HasPrefix(baseFilename, ".") && strings.Contains(baseFilename, "sh")): // This last part covers .bashrc, .zshrc etc
-		mode = ModeShell
+		mode = Shell
 	case ext == ".bzl" || baseFilename == "BUILD" || baseFilename == "WORKSPACE":
-		mode = ModeBazel
+		mode = Bazel
 	case baseFilename == "CMakeLists.txt" || ext == ".cmake":
-		mode = ModeCMake
+		mode = CMake
 	default:
 		switch ext {
 		case ".s", ".S", ".asm", ".inc":
 			// Go-style assembly (modeGoAssembly) is enabled if a mid-dot is discovered
-			mode = ModeAssembly
+			mode = Assembly
 		//case ".s":
-		//mode = ModeGoAssembly
+		//mode = GoAssembly
 		case ".amber":
-			mode = ModeAmber
+			mode = Amber
 		case ".go":
-			mode = ModeGo
+			mode = Go
 		case ".odin":
-			mode = ModeOdin
+			mode = Odin
 		case ".hs":
-			mode = ModeHaskell
+			mode = Haskell
 		case ".sml":
-			mode = ModeStandardML
+			mode = StandardML
 		case ".m4":
-			mode = ModeM4
+			mode = M4
 		case ".ml":
-			mode = ModeOCaml // or standard ML, if the file does not contain ";;"
+			mode = OCaml // or standard ML, if the file does not contain ";;"
 		case ".py":
-			mode = ModePython
+			mode = Python
 		case ".pl":
-			mode = ModePerl
+			mode = Perl
 		case ".md":
 			// Markdown mode
-			mode = ModeMarkdown
+			mode = Markdown
 		case ".bts":
-			mode = ModeBattlestar
+			mode = Battlestar
 		case ".cpp", ".cc", ".c++", ".cxx", ".hpp", ".h":
 			// C++ mode
 			// TODO: Find a way to discover is a .h file is most likely to be C or C++
-			mode = ModeCpp
+			mode = Cpp
 		case ".c":
 			// C mode
-			mode = ModeC
+			mode = C
 		case ".d":
 			// D mode
-			mode = ModeD
+			mode = D
 		case ".cs":
 			// C# mode
-			mode = ModeCS
+			mode = CS
 		case ".adoc", ".rst", ".scdoc", ".scd":
 			// Markdown-like syntax highlighting
 			// TODO: Introduce a separate mode for these.
-			mode = ModeMarkdown
+			mode = Markdown
 		case ".txt", ".text", ".nfo", ".diz":
-			mode = ModeText
+			mode = Text
 		case ".clj", ".clojure", "cljs":
-			mode = ModeClojure
+			mode = Clojure
 		case ".lsp", ".emacs", ".el", ".elisp", ".lisp", ".cl", ".l":
-			mode = ModeLisp
+			mode = Lisp
 		case ".zig", ".zir":
-			mode = ModeZig
+			mode = Zig
 		case ".v":
-			mode = ModeV
+			mode = V
 		case ".kt", ".kts":
-			mode = ModeKotlin
+			mode = Kotlin
 		case ".java", ".gradle":
-			mode = ModeJava
+			mode = Java
 		case ".hal":
-			mode = ModeHIDL
+			mode = HIDL
 		case ".sql":
-			mode = ModeSQL
+			mode = SQL
 		case ".ok":
-			mode = ModeOak
+			mode = Oak
 		case ".rs":
-			mode = ModeRust
+			mode = Rust
 		case ".lua":
-			mode = ModeLua
+			mode = Lua
 		case ".cr":
-			mode = ModeCrystal
+			mode = Crystal
 		case ".nim":
-			mode = ModeNim
+			mode = Nim
 		case ".pas", ".pp", ".lpr":
-			mode = ModeObjectPascal
+			mode = ObjectPascal
 		case ".bat":
-			mode = ModeBat
+			mode = Bat
 		case ".adb", ".gpr", ".ads", ".ada":
-			mode = ModeAda
+			mode = Ada
 		case ".htm", ".html":
-			mode = ModeHTML
+			mode = HTML
 		case ".xml":
-			mode = ModeXML
+			mode = XML
 		case ".te":
-			mode = ModePolicyLanguage
+			mode = PolicyLanguage
 		case ".1", ".2", ".3", ".4", ".5", ".6", ".7", ".8":
-			mode = ModeNroff
+			mode = Nroff
 		case ".scala":
-			mode = ModeScala
+			mode = Scala
 		case ".json", ".ipynb":
-			mode = ModeJSON
+			mode = JSON
 		case ".js":
-			mode = ModeJavaScript
+			mode = JavaScript
 		case ".ts":
-			mode = ModeTypeScript
+			mode = TypeScript
 		default:
-			mode = ModeBlank
+			mode = Blank
 		}
 	}
 
-	if mode == ModeText {
-		mode = ModeMarkdown
+	if mode == Text {
+		mode = Markdown
 	}
 
 	// If the mode is not set and the filename is all uppercase and no ".", use modeMarkdown
-	if mode == ModeBlank && !strings.Contains(baseFilename, ".") && baseFilename == strings.ToUpper(baseFilename) {
-		mode = ModeMarkdown
+	if mode == Blank && !strings.Contains(baseFilename, ".") && baseFilename == strings.ToUpper(baseFilename) {
+		mode = Markdown
 	}
 
 	// Check if we should enable syntax highlighting by default
-	syntaxHighlightingEnabled := (mode != ModeBlank || ext != "") && mode != ModeText
+	syntaxHighlightingEnabled := (mode != Blank || ext != "") && mode != Text
 
 	return mode, syntaxHighlightingEnabled
 }
@@ -220,107 +220,107 @@ func Detect(filename string) (Mode, bool) {
 // String will return a short lowercase string representing the given editor mode
 func (mode Mode) String() string {
 	switch mode {
-	case ModeBlank:
+	case Blank:
 		return "-"
-	case ModeGit:
+	case Git:
 		return "Git"
-	case ModeMarkdown:
+	case Markdown:
 		return "Markdown"
-	case ModeMakefile:
+	case Makefile:
 		return "Make"
-	case ModeShell:
+	case Shell:
 		return "Shell"
-	case ModeConfig:
+	case Config:
 		return "Configuration"
-	case ModeAssembly:
+	case Assembly:
 		return "Assembly"
-	case ModeGoAssembly:
+	case GoAssembly:
 		return "Go-style Assembly"
-	case ModeGo:
+	case Go:
 		return "Go"
-	case ModeHaskell:
+	case Haskell:
 		return "Haskell"
-	case ModeOCaml:
+	case OCaml:
 		return "Ocaml"
-	case ModeStandardML:
+	case StandardML:
 		return "Standard ML"
-	case ModePython:
+	case Python:
 		return "Python"
-	case ModeText:
+	case Text:
 		return "Text"
-	case ModeCMake:
+	case CMake:
 		return "Cmake"
-	case ModeVim:
+	case Vim:
 		return "ViM"
-	case ModeClojure:
+	case Clojure:
 		return "Clojure"
-	case ModeLisp:
+	case Lisp:
 		return "Lisp"
-	case ModeZig:
+	case Zig:
 		return "Zig"
-	case ModeKotlin:
+	case Kotlin:
 		return "Kotlin"
-	case ModeJava:
+	case Java:
 		return "Java"
-	case ModeHIDL:
+	case HIDL:
 		return "HIDL"
-	case ModeSQL:
+	case SQL:
 		return "SQL"
-	case ModeOak:
+	case Oak:
 		return "Oak"
-	case ModeRust:
+	case Rust:
 		return "Rust"
-	case ModeLua:
+	case Lua:
 		return "Lua"
-	case ModeCrystal:
+	case Crystal:
 		return "Crystal"
-	case ModeNim:
+	case Nim:
 		return "Nim"
-	case ModeObjectPascal:
+	case ObjectPascal:
 		return "Pas"
-	case ModeBat:
+	case Bat:
 		return "Bat"
-	case ModeCpp:
+	case Cpp:
 		return "C++"
-	case ModeC:
+	case C:
 		return "C"
-	case ModeAda:
+	case Ada:
 		return "Ada"
-	case ModeHTML:
+	case HTML:
 		return "HTML"
-	case ModeOdin:
+	case Odin:
 		return "Odin"
-	case ModePerl:
+	case Perl:
 		return "Perl"
-	case ModeXML:
+	case XML:
 		return "XML"
-	case ModePolicyLanguage:
+	case PolicyLanguage:
 		return "SELinux"
-	case ModeNroff:
+	case Nroff:
 		return "Nroff"
-	case ModeScala:
+	case Scala:
 		return "Scala"
-	case ModeJSON:
+	case JSON:
 		return "JSON"
-	case ModeBattlestar:
+	case Battlestar:
 		return "Battlestar"
-	case ModeCS:
+	case CS:
 		return "C#"
-	case ModeTypeScript:
+	case TypeScript:
 		return "TypeScript"
-	case ModeJavaScript:
+	case JavaScript:
 		return "JavaScript"
-	case ModeManPage:
+	case ManPage:
 		return "Man"
-	case ModeAmber:
+	case Amber:
 		return "Amber"
-	case ModeBazel:
+	case Bazel:
 		return "Bazel"
-	case ModeD:
+	case D:
 		return "D"
-	case ModeV:
+	case V:
 		return "V"
-	case ModeM4:
+	case M4:
 		return "M4"
 	default:
 		return "?"

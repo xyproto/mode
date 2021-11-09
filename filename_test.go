@@ -20,4 +20,11 @@ func TestDetect(t *testing.T) {
 	if Detect("main.asm") != Assembly {
 		t.Fail()
 	}
+	if Detect("90-libvirt-mydevice") != Config {
+		t.Fail()
+	}
+	if Detect("a90-libvirt-mydevice") == Config {
+		t.Fail()
+	}
+
 }

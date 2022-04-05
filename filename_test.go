@@ -26,5 +26,8 @@ func TestDetect(t *testing.T) {
 	if Detect("a90-libvirt-mydevice") == Config {
 		t.Fail()
 	}
+	if Detect("/tmp/man.XXXXtweZrK") != ManPage {
+		t.Fail()
+	}
 
 }

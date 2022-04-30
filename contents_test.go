@@ -11,6 +11,7 @@ func TestSimpleDetect(t *testing.T) {
 		"":                                       Blank,
 		"# Hello":                                Config,
 		"#include <stdio.h>":                     Blank, // hard to tell if this is C or C++, should be detected by filename, not by contents
+		"<?xml version=\"1.0\" encoding=":        XML,
 	}
 	for s, targetMode := range examples {
 		if m := SimpleDetect(s); m != targetMode {

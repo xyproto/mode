@@ -35,6 +35,7 @@ const (
 	Rust           // Rust
 	Lua            // Lua
 	Crystal        // Crystal
+	Erlang         // Erlang
 	Nim            // Nim
 	ObjectPascal   // Object Pascal and Delphi
 	Bat            // DOS batch files
@@ -126,6 +127,8 @@ func (mode Mode) String() string {
 		return "Lua"
 	case Crystal:
 		return "Crystal"
+	case Erlang:
+		return "Erlang"
 	case Nim:
 		return "Nim"
 	case ObjectPascal:

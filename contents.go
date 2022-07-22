@@ -75,7 +75,7 @@ func DetectFromContents(initial Mode, firstLine string, allTextFunc func() strin
 	// If more lines start with "# " than "// " or "/* ", and mode is blank,
 	// set the mode to modeConfig and enable syntax highlighting.
 	// If more than one line is just "::"  or starts with "[source" and ends with "]", assume reStructuredText
-	if !notConfig && (m == Blank || m == Config) {
+	if !notConfig && (m == Blank || m == Config || m == Markdown) {
 		foundFirstContent := false
 		hashComment := 0
 		slashComment := 0
@@ -160,7 +160,7 @@ func DetectFromContentBytes(initial Mode, firstLine []byte, allBytesFunc func() 
 	}
 	// If more lines start with "# " than "// " or "/* ", and mode is blank,
 	// set the mode to modeConfig and enable syntax highlighting.
-	if !notConfig && (m == Blank || m == Config) {
+	if !notConfig && (m == Blank || m == Config || m == Markdown) {
 		foundFirstContent := false
 		hashComment := 0
 		slashComment := 0

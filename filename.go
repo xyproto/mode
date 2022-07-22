@@ -89,7 +89,7 @@ func Detect(filename string) Mode {
 			mode = D
 		case ".erl":
 			mode = Erlang
-		case ".g":
+		case ".gt":
 			mode = Garnet
 		case ".go":
 			mode = Go

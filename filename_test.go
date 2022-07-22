@@ -29,5 +29,4 @@ func TestDetect(t *testing.T) {
 	if Detect("/tmp/man.XXXXtweZrK") != ManPage {
 		t.Fail()
 	}
-
 }

@@ -12,6 +12,7 @@ func TestSimpleDetect(t *testing.T) {
 		"# Hello":                                Config,
 		"#include <stdio.h>":                     Blank, // hard to tell if this is C or C++, should be detected by filename, not by contents
 		"<?xml version=\"1.0\" encoding=":        XML,
+		"::\n[source,C]":                         ReStructured,
 	}
 	for s, targetMode := range examples {
 		if m := SimpleDetect(s); m != targetMode {
@@ -28,6 +29,7 @@ func TestSimpleDetectFromBytes(t *testing.T) {
 		"# Hello":                                Config,
 		"#include <stdio.h>":                     Blank, // hard to tell if this is C or C++, should be detected by filename, not by contents
 		"<?xml version=\"1.0\" encoding=":        XML,
+		"::\n[source,C]":                         ReStructured,
 	}
 	for s, targetMode := range examples {
 		if m := SimpleDetectBytes([]byte(s)); m != targetMode {

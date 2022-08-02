@@ -96,7 +96,9 @@ func DetectFromContents(initial Mode, firstLine string, allTextFunc func() strin
 		hashComment := 0
 		slashComment := 0
 		reStructuredTextMarkers := 0
-		for _, line := range strings.Split(allTextFunc(), "\n") {
+		configMarkers := 0
+		lines := strings.Split(allTextFunc(), "\n")
+		for i, line := range lines {
 			if strings.HasPrefix(line, "# ") {
 				hashComment++
 			} else if strings.HasPrefix(line, "/") { // Count all lines starting with "/" as a comment, for this purpose
@@ -113,6 +115,13 @@ func DetectFromContents(initial Mode, firstLine string, allTextFunc func() strin
 				if trimmedLine == "{" { // first found content is {, assume JSON
 					m = JSON
 					found = true
+				}
+			} else if strings.Contains(trimmedLine, "(") || strings.Contains(trimmedLine, ")") || strings.Contains(trimmedLine, "=") {
+				// Might be a configuration file if most of the lines have (, ) or =
+				configMarkers++
+				ratio := float64(configMarkers) / float64(i+1)
+				if ratio >= 0.8 { // Are "most of the lines" containing (, ) or = ?
+					return Config, true
 				}
 			}
 		}
@@ -184,7 +193,9 @@ func DetectFromContentBytes(initial Mode, firstLine []byte, allBytesFunc func() 
 		hashComment := 0
 		slashComment := 0
 		reStructuredTextMarkers := 0
-		for _, line := range bytes.Split(allBytesFunc(), []byte("\n")) {
+		byteLines := bytes.Split(allBytesFunc(), []byte("\n"))
+		configMarkers := 0
+		for i, line := range byteLines {
 			if bytes.HasPrefix(line, []byte("# ")) {
 				hashComment++
 			} else if bytes.HasPrefix(line, []byte("/")) { // Count all lines starting with "/" as a comment, for this purpose
@@ -201,6 +212,13 @@ func DetectFromContentBytes(initial Mode, firstLine []byte, allBytesFunc func() 
 				if len(trimmedLine) == 1 && trimmedLine[0] == byte('{') { // first found content is {, assume JSON
 					m = JSON
 					found = true
+				}
+			} else if bytes.Contains(trimmedLine, []byte("(")) || bytes.Contains(trimmedLine, []byte(")")) || bytes.Contains(trimmedLine, []byte("=")) {
+				// Might be a configuration file if most of the lines have (, ) or =
+				configMarkers++
+				ratio := float64(configMarkers) / float64(i+1)
+				if ratio >= 0.8 { // Are "most of the lines" containing (, ) or = ?
+					return Config, true
 				}
 			}
 		}

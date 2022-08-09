@@ -19,6 +19,7 @@ func Detect(filename string) Mode {
 	ext := filepath.Ext(baseFilename)
 
 	// Check if we should be in a particular mode for a particular type of file
+	// TODO: Create a hash map to look up many of the extensions
 	switch {
 	case baseFilename == "COMMIT_EDITMSG" ||
 		baseFilename == "MERGE_MSG" ||
@@ -34,7 +35,7 @@ func Detect(filename string) Mode {
 		mode = Make
 	case strings.HasSuffix(filename, ".git/config") || ext == ".ini" || ext == ".cfg" || ext == ".conf" || ext == ".service" || ext == ".target" || ext == ".socket" || strings.HasPrefix(ext, "rc"):
 		fallthrough
-	case ext == ".yml" || ext == ".toml" || ext == ".ini" || ext == ".bp" || ext == ".rule" || strings.HasSuffix(filename, ".git/config") || (ext == "" && (strings.HasSuffix(baseFilename, "file") || strings.HasSuffix(baseFilename, "rc") || hasS(configFilenames, baseFilename))):
+	case ext == ".yml" || ext == ".toml" || ext == ".ini" || ext == ".bp" || ext == ".rule" || ext == ".cm" || strings.HasSuffix(filename, ".git/config") || (ext == "" && (strings.HasSuffix(baseFilename, "file") || strings.HasSuffix(baseFilename, "rc") || hasS(configFilenames, baseFilename))):
 		mode = Config
 	case ext == ".sh" || ext == ".install" || ext == ".ksh" || ext == ".tcsh" || ext == ".bash" || ext == ".zsh" || ext == ".local" || ext == ".profile" || baseFilename == "PKGBUILD" || (strings.HasPrefix(baseFilename, ".") && strings.Contains(baseFilename, "sh")): // This last part covers .bashrc, .zshrc etc
 		mode = Shell
@@ -155,7 +156,7 @@ func Detect(filename string) Mode {
 			mode = Assembly
 		case ".scala":
 			mode = Scala
-		case ".sml":
+		case ".fun", ".sml":
 			mode = StandardML
 		case ".sql":
 			mode = SQL

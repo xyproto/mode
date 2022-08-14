@@ -15,6 +15,7 @@ var examples = map[string]Mode{
 	"::\n[source,C]":                         ReStructured,
 	"\" This file is blabla\nand":            Vim,
 	"x = 42\ny = 32\nalso (\n  z = 5\n)\n":   Config,
+	"#!/usr/bin/env python3\n\n":             Python,
 }
 
 var exampleFiles = map[string]Mode{

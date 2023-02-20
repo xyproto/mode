@@ -28,6 +28,8 @@ func Detect(filename string) Mode {
 			strings.Count(baseFilename, "-") >= 2):
 		// Git mode
 		mode = Git
+	case baseFilename == "svn-commit.tmp":
+		mode = Subversion
 	case ext == ".vimrc" || ext == ".vim" || ext == ".nvim":
 		mode = Vim
 	case ext == ".mk" || strings.HasPrefix(baseFilename, "Make") || strings.HasPrefix(baseFilename, "makefile") || baseFilename == "GNUmakefile":

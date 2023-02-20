@@ -8,7 +8,6 @@ import (
 
 // Detect looks at the filename and tries to guess what could be an appropriate editor mode.
 func Detect(filename string) Mode {
-
 	// A list of the most common configuration filenames that does not have an extension
 	var (
 		configFilenames = []string{"BUILD", "WORKSPACE", "config", "environment", "fstab", "group", "gshadow", "hostname", "hosts", "issue", "mirrorlist", "passwd", "shadow"}

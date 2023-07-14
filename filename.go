@@ -34,6 +34,9 @@ func Detect(filename string) Mode {
 	case ext == ".mk" || strings.HasPrefix(baseFilename, "Make") || strings.HasPrefix(baseFilename, "makefile") || baseFilename == "GNUmakefile":
 		// NOTE: This one MUST come before the ext == "" check below!
 		mode = Make
+	case ext == ".just" || ext == ".justfile" || baseFilename == "justfile":
+		// NOTE: This one MUST come before the ext == "" check below!
+		mode = Just
 	case strings.HasSuffix(filename, ".git/config") || ext == ".ini" || ext == ".cfg" || ext == ".conf" || ext == ".service" || ext == ".target" || ext == ".socket" || strings.HasPrefix(ext, "rc"):
 		fallthrough
 	case ext == ".yml" || ext == ".toml" || ext == ".ini" || ext == ".bp" || ext == ".rule" || strings.HasSuffix(filename, ".git/config") || (ext == "" && (strings.HasSuffix(baseFilename, "file") || strings.HasSuffix(baseFilename, "rc") || hasS(configFilenames, baseFilename))):
@@ -42,8 +45,6 @@ func Detect(filename string) Mode {
 		mode = Shell
 	case ext == ".bzl" || baseFilename == "BUILD" || baseFilename == "WORKSPACE":
 		mode = Bazel
-	case ext == ".just" || ext == ".justfile" || baseFilename == "justfile":
-		mode = Just
 	case baseFilename == "CMakeLists.txt" || ext == ".cmake":
 		mode = CMake
 	case strings.HasPrefix(baseFilename, "man.") && len(ext) > 4: // ie.: /tmp/man.0asdfadf

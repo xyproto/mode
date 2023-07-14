@@ -42,6 +42,8 @@ func Detect(filename string) Mode {
 		mode = Shell
 	case ext == ".bzl" || baseFilename == "BUILD" || baseFilename == "WORKSPACE":
 		mode = Bazel
+	case ext == ".just" || ext == ".justfile" || baseFilename == "justfile":
+		mode = Just
 	case baseFilename == "CMakeLists.txt" || ext == ".cmake":
 		mode = CMake
 	case strings.HasPrefix(baseFilename, "man.") && len(ext) > 4: // ie.: /tmp/man.0asdfadf

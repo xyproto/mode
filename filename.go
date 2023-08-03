@@ -6,13 +6,12 @@ import (
 	"strings"
 )
 
+// configFilenames is a list of the most common configuration filenames that does not have an extension
+var configFilenames = []string{"BUILD", "WORKSPACE", "config", "environment", "fstab", "group", "gshadow", "hostname", "hosts", "issue", "mirrorlist", "passwd", "shadow"}
+
 // Detect looks at the filename and tries to guess what could be an appropriate editor mode.
 func Detect(filename string) Mode {
-	// A list of the most common configuration filenames that does not have an extension
-	var (
-		configFilenames = []string{"BUILD", "WORKSPACE", "config", "environment", "fstab", "group", "gshadow", "hostname", "hosts", "issue", "mirrorlist", "passwd", "shadow"}
-		mode            Mode
-	)
+	var mode Mode
 
 	baseFilename := filepath.Base(filename)
 	ext := filepath.Ext(baseFilename)
@@ -100,11 +99,11 @@ func Detect(filename string) Mode {
 			mode = Email
 		case ".erl":
 			mode = Erlang
-		case ".f":
+		case ".f", ".f77":
 			mode = Fortran77
 		case ".f90":
 			mode = Fortran90
-		case ".fs":
+		case ".fs", ".fsx":
 			mode = FSharp
 		case ".gd":
 			mode = GDScript
@@ -218,4 +217,176 @@ func Detect(filename string) Mode {
 	}
 
 	return mode
+}
+
+// Exts returns a slice of glob strings for files that might be examined for this file mode,
+// For example, "*.fs" and "*.fsx" for F#. Or BUILD, WORKSPACE and other filenames for mode.Config.
+func (mode Mode) Globs() string {
+	// TODO: Add a test that makes sure every mode has at least one ext
+	switch mode {
+	case Ada:
+		return ".ada"
+	case Agda:
+		return ".agda"
+	case AIDL:
+		return "AIDL"
+	case Amber:
+		return "Amber"
+	case Arduino:
+		return "Arduino"
+	case Assembly:
+		return "Assembly"
+	case Basic:
+		return "Basic"
+	case Bat:
+		return "Bat"
+	case Battlestar:
+		return "Battlestar"
+	case Bazel:
+		return "Bazel"
+	case Blank:
+		return "-"
+	case Clojure:
+		return "Clojure"
+	case CMake:
+		return "CMake"
+	case Config:
+		return append(configFilenames, "config", "*.ini", "*.cfg", "*.conf", "*.service", "*.target", "*.socket", "*rc", "*.ini", "*.cfg")
+	case Cpp:
+		return "C++"
+	case C:
+		return "C"
+	case Crystal:
+		return "Crystal"
+	case CS:
+		return "C#"
+	case Doc:
+		return "Document"
+	case D:
+		return "D"
+	case Dart:
+		return "Dart"
+	case Elm:
+		return "Elm"
+	case Email:
+		return "E-mail"
+	case Erlang:
+		return "Erlang"
+	case Fortran77:
+		return "Fortran 77"
+	case Fortran90:
+		return "Fortran 90"
+	case FSharp:
+		return "F#"
+	case Garnet:
+		return "Garnet"
+	case GDScript:
+		return "Godot Script"
+	case Git:
+		return []string{"COMMIT_EDITMSG", "MERGE_MSG", "git-*"}
+	case GoAssembly:
+		return "Go-style Assembly"
+	case Go:
+		return "Go"
+	case Gradle:
+		return "Gradle"
+	case Hare:
+		return "Hare"
+	case Haskell:
+		return "Haskell"
+	case Haxe:
+		return "Haxe"
+	case HIDL:
+		return "HIDL"
+	case HTML:
+		return "HTML"
+	case Ivy:
+		return "Ivy"
+	case Jakt:
+		return "Jakt"
+	case Java:
+		return "Java"
+	case JavaScript:
+		return "JavaScript"
+	case JSON:
+		return "JSON"
+	case Just:
+		return []string{"*.just", "*.justfile", "justfile"}
+	case Koka:
+		return "Koka"
+	case Kotlin:
+		return "Kotlin"
+	case Lisp:
+		return "Lisp"
+	case Log:
+		return "Log"
+	case Lua:
+		return "Lua"
+	case M4:
+		return "M4"
+	case Make:
+		return []string{"makefile", "*.mk", "GNUmakefile", "Make*"}
+	case ManPage:
+		return "Man"
+	case Markdown:
+		return "Markdown"
+	case Mojo:
+		return "Mojo"
+	case Nim:
+		return "Nim"
+	case Nroff:
+		return "Nroff"
+	case Oak:
+		return "Oak"
+	case ObjectPascal:
+		return "Pas"
+	case OCaml:
+		return "Ocaml"
+	case Odin:
+		return "Odin"
+	case Perl:
+		return "Perl"
+	case PolicyLanguage:
+		return "SELinux"
+	case Prolog:
+		return "Prolog"
+	case Python:
+		return "Python"
+	case R:
+		return "R"
+	case ReStructured:
+		return "reStructuredText"
+	case Rust:
+		return "Rust"
+	case Scala:
+		return "Scala"
+	case Shader:
+		return "Shader"
+	case Shell:
+		return "Shell"
+	case SQL:
+		return "SQL"
+	case StandardML:
+		return "Standard ML"
+	case Subversion:
+		return []string{"svn-commit.tmp"}
+	case Teal:
+		return "Teal"
+	case Terra:
+		return "Terra"
+	case Text:
+		return "Text"
+	case TypeScript:
+		return "TypeScript"
+	case Vim:
+		return []string{".vimrc", "*.vimrc", "*.vim", "*.nvim"}
+	case V:
+		return "V"
+	case XML:
+		return "XML"
+	case Zig:
+		return "Zig"
+	default:
+		return "?"
+	}
 }

@@ -139,8 +139,6 @@ func (mode Mode) String() string {
 		return "Crystal"
 	case CS:
 		return "C#"
-	case Doc:
-		return "Document"
 	case D:
 		return "D"
 	case Dart:
@@ -247,7 +245,7 @@ func (mode Mode) String() string {
 		return "Rust"
 	case Scala:
 		return "Scala"
-	case SCDOc:
+	case SCDoc:
 		return "SCDoc"
 	case Shader:
 		return "Shader"

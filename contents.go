@@ -5,21 +5,6 @@ import (
 	"strings"
 )
 
-// SimpleDetect tries to return a Mode given a string of file contents
-func SimpleDetect(contents string) Mode {
-	firstLine := contents
-	if strings.Contains(contents, "\n") {
-		firstLine = strings.SplitN(contents, "\n", 2)[0]
-	}
-	if len(firstLine) > 512 { // just look at the first 512, if it's one long line
-		firstLine = firstLine[:512]
-	}
-	if m, found := DetectFromContents(Blank, firstLine, func() string { return contents }); found {
-		return m
-	}
-	return Blank
-}
-
 // SimpleDetectBytes tries to return a Mode given a byte slice of file contents
 func SimpleDetectBytes(contents []byte) Mode {
 	nl := []byte("\n")
@@ -27,13 +12,18 @@ func SimpleDetectBytes(contents []byte) Mode {
 	if bytes.Contains(contents, nl) {
 		firstLine = bytes.SplitN(contents, nl, 2)[0]
 	}
-	if len(firstLine) > 512 { // just look at the first 255, if it's one long line
+	if len(firstLine) > 512 { // just look at the first 512, if it's one long line
 		firstLine = firstLine[:512]
 	}
 	if m, found := DetectFromContentBytes(Blank, firstLine, func() []byte { return contents }); found {
 		return m
 	}
 	return Blank
+}
+
+// SimpleDetect tries to return a Mode given a string of file contents
+func SimpleDetect(contents string) Mode {
+	return SimpleDetectBytes([]byte(contents))
 }
 
 // DetectFromContentBytes takes the first line of a file as a byte slice,

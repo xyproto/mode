@@ -16,6 +16,7 @@ var examples = map[string]Mode{
 	"\" This file is blabla\nand":            Vim,
 	"x = 42\ny = 32\nalso (\n  z = 5\n)\n":   Config,
 	"#!/usr/bin/env python3\n\n":             Python,
+	"\n\n<asdf\n\n    >   \n\n":              XML, // if code starts with "<" and ends with ">"
 }
 
 var exampleFiles = map[string]Mode{

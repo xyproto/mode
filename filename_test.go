@@ -32,4 +32,7 @@ func TestDetect(t *testing.T) {
 	if Detect("justfile") != Just {
 		t.Fail()
 	}
+	if Detect("local.ini") != Ini {
+		t.Fail()
+	}
 }

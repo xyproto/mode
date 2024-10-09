@@ -6,6 +6,16 @@ import (
 	"strings"
 )
 
+// hasS checks if the given string slice contains the given string
+func hasS(sl []string, s string) bool {
+	for _, e := range sl {
+		if e == s {
+			return true
+		}
+	}
+	return false
+}
+
 // Detect looks at the filename and tries to guess what could be an appropriate editor mode.
 func Detect(filename string) Mode {
 	// A list of the most common configuration filenames that does not have an extension
@@ -141,6 +151,8 @@ func Detect(filename string) Mode {
 			mode = HTML
 		case ".hx", ".hxml":
 			mode = Haxe
+		case ".ini":
+			mode = Ini
 		case ".ino":
 			mode = Arduino
 		case ".inko":

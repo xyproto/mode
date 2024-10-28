@@ -23,6 +23,14 @@ var exampleFiles = map[string]Mode{
 	"testfiles/META": Config,
 }
 
+func TestGoAssembly(t *testing.T) {
+	exampleString := "// func getisar0() uint64\nTEXT ·getisar0(SB),NOSPLIT,$0\n  // get Instruction Set Attributes 0 into R0\n  MRS	ID_AA64ISAR0_EL1, R0\n  MOVD	R0, ret+0(FP)\n  RET"
+	m := SimpleDetectBytes([]byte(exampleString))
+	if m != GoAssembly {
+		t.Fatalf("Expected %s got %s for example Go/Plan9 style Assembly", Mode(GoAssembly).String(), m.String())
+	}
+}
+
 func TestSimpleDetect(t *testing.T) {
 	for s, targetMode := range examples {
 		if m := SimpleDetect(s); m != targetMode {

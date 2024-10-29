@@ -1,7 +1,7 @@
 package mode
 
 import (
-	"io/ioutil"
+	"os"
 	"testing"
 )
 
@@ -38,7 +38,7 @@ func TestSimpleDetect(t *testing.T) {
 		}
 	}
 	for filename, targetMode := range exampleFiles {
-		data, err := ioutil.ReadFile(filename)
+		data, err := os.ReadFile(filename)
 		if err != nil {
 			t.Fatalf("Could not read %s: %v\n", filename, err)
 		}
@@ -55,7 +55,7 @@ func TestSimpleDetectFromBytes(t *testing.T) {
 		}
 	}
 	for filename, targetMode := range exampleFiles {
-		data, err := ioutil.ReadFile(filename)
+		data, err := os.ReadFile(filename)
 		if err != nil {
 			t.Fatalf("Could not read %s: %v\n", filename, err)
 		}

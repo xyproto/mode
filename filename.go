@@ -109,6 +109,8 @@ func Detect(filename string) Mode {
 			mode = Clojure
 		case ".cs": // C#
 			mode = CS
+		case ".csd", ".orc", ".sco":
+			mode = CSound
 		case ".css":
 			mode = CSS
 		case ".csproj": // C# projects

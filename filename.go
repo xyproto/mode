@@ -169,7 +169,7 @@ func Detect(filename string) Mode {
 			mode = Java
 		case ".js", ".jsx":
 			mode = JavaScript
-		case ".json", ".ipynb":
+		case ".ign", ".ipynb", ".json":
 			mode = JSON
 		case ".kk":
 			mode = Koka

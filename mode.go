@@ -104,7 +104,7 @@ const (
 	SCDoc                 // SC Doc
 	Scheme                // Scheme
 	Shader                // GLSL Shader
-	Shell                 // Shell scripts and PKGBUILD files
+	Shell                 // Shell scripts, PKGBUILD and APKGBUILD files
 	StandardML            // Standard ML
 	Starlark              // Starlark
 	SQL                   // Structured Query Language

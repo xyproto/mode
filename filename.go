@@ -115,7 +115,7 @@ func Detect(filename string) Mode {
 		case ".cpp", ".cc", ".c++", ".cxx", ".hpp", ".h", ".h++": // C++ mode
 			// TODO: Find a way to discover is a .h file is most likely to be C or C++
 			mode = Cpp
-		case ".clj", ".clojure", "cljs":
+		case ".clj", ".clojure", ".cljs":
 			mode = Clojure
 		case ".cs": // C#
 			mode = CS

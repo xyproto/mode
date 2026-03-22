@@ -112,7 +112,7 @@ func Detect(filename string) Mode {
 		case ".cm":
 			// Standard ML project file
 			mode = StandardML
-		case ".cpp", ".cc", ".c++", ".cxx", ".hpp", ".h", ".h++": // C++ mode
+		case ".cpp", ".cc", ".c++", ".cxx", ".hh", ".hpp", ".h", ".h++": // C++ mode
 			// TODO: Find a way to discover is a .h file is most likely to be C or C++
 			mode = Cpp
 		case ".clj", ".clojure", ".cljs":
@@ -139,6 +139,8 @@ func Detect(filename string) Mode {
 			mode = Dingo
 		case ".patch", ".diff":
 			mode = Diff
+		case ".ex", ".exs":
+			mode = Elixir
 		case ".elm":
 			mode = Elm
 		case ".eml":
@@ -173,6 +175,8 @@ func Detect(filename string) Mode {
 			mode = Haskell
 		case ".htm", ".html":
 			mode = HTML
+		case ".http":
+			mode = HTTP
 		case ".hx", ".hxml":
 			mode = Haxe
 		case ".ini":
@@ -230,6 +234,8 @@ func Detect(filename string) Mode {
 			mode = Perl
 		case ".plg", ".pro":
 			mode = Prolog
+		case ".proto":
+			mode = Config
 		case ".py":
 			mode = Python
 		case ".pov":
@@ -269,9 +275,11 @@ func Detect(filename string) Mode {
 			mode = Terra
 		case ".te":
 			mode = PolicyLanguage
+		case ".tf", ".tfvars":
+			mode = Config
 		case ".tl":
 			mode = Teal
-		case ".ts":
+		case ".ts", ".tsx":
 			mode = TypeScript
 		case ".txt", ".text", ".nfo", ".diz":
 			mode = Text

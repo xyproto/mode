@@ -35,4 +35,19 @@ func TestDetect(t *testing.T) {
 	if Detect("local.ini") != Ini {
 		t.Fail()
 	}
+	if Detect("test.abw") != Abiword {
+		t.Fail()
+	}
+	if Detect("test.docx") != DOCX {
+		t.Fail()
+	}
+	if Detect("test.odt") != LibreOffice {
+		t.Fail()
+	}
+	if Detect("test.rtf") != RTF {
+		t.Fail()
+	}
+	if Detect("test.wg") != WordGrinder {
+		t.Fail()
+	}
 }

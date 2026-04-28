@@ -17,6 +17,10 @@ var examples = map[string]Mode{
 	"x = 42\ny = 32\nalso (\n  z = 5\n)\n":   Config,
 	"#!/usr/bin/env python3\n\n":             Python,
 	"\n\n<asdf\n\n    >   \n\n":              XML, // if code starts with "<" and ends with ">"
+	"{\\rtf1\\ansi\\deff0":                   RTF,
+	"WordGrinder: uncompressed document":     WordGrinder,
+	"<abiword version=\"2.1\">":              Abiword,
+	"PK\x03\x04\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00mimetypeapplication/vnd.oasis.opendocument.text": LibreOffice,
 }
 
 var exampleFiles = map[string]Mode{

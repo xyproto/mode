@@ -50,4 +50,55 @@ func TestDetect(t *testing.T) {
 	if Detect("test.wg") != WordGrinder {
 		t.Fail()
 	}
+	if Detect("config.yml") != YAML {
+		t.Fail()
+	}
+	if Detect("config.yaml") != YAML {
+		t.Fail()
+	}
+	if Detect("Cargo.toml") != TOML {
+		t.Fail()
+	}
+	if Detect("main.tf") != HCL {
+		t.Fail()
+	}
+	if Detect("vars.tfvars") != HCL {
+		t.Fail()
+	}
+	if Detect("service.proto") != Protobuf {
+		t.Fail()
+	}
+	if Detect("data.csv") != CSV {
+		t.Fail()
+	}
+	if Detect("data.tsv") != CSV {
+		t.Fail()
+	}
+	if Detect("config.dhall") != Dhall {
+		t.Fail()
+	}
+	if Detect("script.janet") != Janet {
+		t.Fail()
+	}
+	if Detect("script.nu") != Nushell {
+		t.Fail()
+	}
+	if Detect("config.pkl") != Pkl {
+		t.Fail()
+	}
+	if Detect("shader.wgsl") != WGSL {
+		t.Fail()
+	}
+	if Detect("BUILD") != Bazel {
+		t.Fail()
+	}
+	if Detect("WORKSPACE") != Bazel {
+		t.Fail()
+	}
+	if Detect("BUILD.bazel") != Bazel {
+		t.Fail()
+	}
+	if Detect("shader.hlsl") != Shader {
+		t.Fail()
+	}
 }

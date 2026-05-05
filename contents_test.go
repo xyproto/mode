@@ -21,6 +21,15 @@ var examples = map[string]Mode{
 	"WordGrinder: uncompressed document":     WordGrinder,
 	"<abiword version=\"2.1\">":              Abiword,
 	"PK\x03\x04\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00mimetypeapplication/vnd.oasis.opendocument.text": LibreOffice,
+	"%YAML 1.2\n---\nfoo: bar\n":                        YAML,
+	"---\nfoo: bar\n":                                   YAML,
+	"syntax = \"proto3\";\npackage foo;\n":              Protobuf,
+	"terraform {\n  required_version = \">= 1.0\"\n}\n": HCL,
+	"resource \"aws_instance\" \"web\" {\n}\n":          HCL,
+	"#!/usr/bin/env nu\necho hello\n":                   Nushell,
+	"amends \"package://example.com/config.pkl\"\n":     Pkl,
+	"@vertex\nfn vs_main() -> vec4<f32> {\n}\n":         WGSL,
+	"@fragment\nfn fs_main() -> vec4<f32> {\n}\n":       WGSL,
 }
 
 var exampleFiles = map[string]Mode{

@@ -13,6 +13,8 @@ var examples = map[string]Mode{
 	"#include <stdio.h>":                     Blank, // hard to tell if this is C or C++, should be detected by filename, not by contents
 	"<?xml version=\"1.0\" encoding=":        XML,
 	"::\n[source,C]":                         ReStructured,
+	"=====\nTitle\n=====\n\nSome text\n":     ReStructured,
+	"Title\n=====\n\nSome text\n":            ReStructured,
 	"\" This file is blabla\nand":            Vim,
 	"x = 42\ny = 32\nalso (\n  z = 5\n)\n":   Config,
 	"#!/usr/bin/env python3\n\n":             Python,

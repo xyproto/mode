@@ -232,7 +232,7 @@ func (mode Mode) String() string {
 	case Faust:
 		return "Faust"
 	case Fennel:
-		return "Fennel
+		return "Fennel"
 	case Fortran77:
 		return "Fortran 77"
 	case Fortran90:

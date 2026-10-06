@@ -1,4 +1,4 @@
-fpackage mode
+package mode
 
 import (
 	"path/filepath"

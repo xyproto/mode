@@ -1,4 +1,4 @@
-package mode
+fpackage mode
 
 import (
 	"path/filepath"
@@ -169,6 +169,8 @@ func Detect(filename string) Mode {
 			mode = Fortran77
 		case ".f90":
 			mode = Fortran90
+		case ".fnl":
+			mode = Fennel
 		case ".fs":
 			mode = FSharp
 		case ".gd":

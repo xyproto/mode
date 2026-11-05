@@ -32,6 +32,23 @@ var examples = map[string]Mode{
 	"amends \"package://example.com/config.pkl\"\n":     Pkl,
 	"@vertex\nfn vs_main() -> vec4<f32> {\n}\n":         WGSL,
 	"@fragment\nfn fs_main() -> vec4<f32> {\n}\n":       WGSL,
+	"#!/bin/bash -e\necho hi\n":                         Shell,
+	"#! /bin/sh\n":                                      Shell,
+	"#!/bin/sh\r\necho hi\r\n":                          Shell,
+	"#!/usr/bin/dash\n":                                 Shell,
+	"#!/usr/bin/perl -w\n":                              Perl,
+	"#!/usr/bin/env -S python3 -u\n":                    Python,
+	"#!/usr/bin/env PYTHONPATH=. python3\n":             Python,
+	"#!/usr/bin/env fish\n":                             Fish,
+	"#!/usr/bin/env ysh\n":                              Oil,
+	"#!/usr/bin/env oil\n":                              Oil,
+	"#!/usr/bin/env osh\n":                              Shell,
+	"#!/usr/bin/env node\n":                             JavaScript,
+	"#!/usr/bin/env ruby\n":                             Ruby,
+	"#!/usr/bin/env lua5.4\n":                           Lua,
+	"#!/usr/bin/php\n":                                  PHP,
+	"LS(1)                  User Commands                  LS(1)\n\nNAME\n":          ManPage,
+	"This tool does many things for you on the command line, and more (see below)\n": Blank,
 }
 
 var exampleFiles = map[string]Mode{

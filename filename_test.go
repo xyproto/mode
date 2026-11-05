@@ -102,3 +102,68 @@ func TestDetect(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestDetectFilenames(t *testing.T) {
+	for filename, want := range map[string]Mode{
+		"config.fish":        Fish,
+		"x.oil":              Oil,
+		"x.ysh":              Oil,
+		"Makefile":           Make,
+		"Makefile.am":        Make,
+		"makefile":           Make,
+		"GNUmakefile":        Make,
+		"BSDmakefile":        Make,
+		"rules.mk":           Make,
+		"MakeRequest.go":     Go,
+		"Maker.py":           Python,
+		"Dockerfile":         Docker,
+		"Dockerfile.dev":     Docker,
+		"app.dockerfile":     Docker,
+		"Containerfile":      Docker,
+		"COMMIT_EDITMSG":     Git,
+		"TAG_EDITMSG":        Git,
+		"NOTES_EDITMSG":      Git,
+		"PULLREQ_EDITMSG":    Git,
+		"SQUASH_MSG":         Git,
+		"EDIT_DESCRIPTION":   Git,
+		"README":             Markdown,
+		"Gemfile":            Ruby,
+		"Rakefile":           Ruby,
+		"Vagrantfile":        Ruby,
+		"tasks.rake":         Ruby,
+		"x.gemspec":          Ruby,
+		"Jenkinsfile":        Config,
+		"index.mjs":          JavaScript,
+		"index.cjs":          JavaScript,
+		"index.mts":          TypeScript,
+		"index.cts":          TypeScript,
+		"tsconfig.jsonc":     JSON,
+		"config.json5":       JSON,
+		"main.hcl":           HCL,
+		"go.work":            GoMod,
+		"go.mod":             GoMod,
+		"x.mli":              OCaml,
+		"x.pyi":              Python,
+		".env":               Config,
+		"production.env":     Config,
+		"logo.svg":           XML,
+		"x.frag":             Shader,
+		"x.vert":             Shader,
+		"x.comp":             Shader,
+		"x.hrl":              Erlang,
+		".editorconfig":      Ini,
+		"app.desktop":        Ini,
+		"build.zig.zon":      Zig,
+		"README.MD":          Markdown,
+		"x.PY":               Python,
+		"/home/USER/x.Go":    Go,
+		"x.C":                Cpp,
+		"x.c":                C,
+		"x.S":                Assembly,
+		"x.UNKNOWNEXTENSION": Blank,
+	} {
+		if got := Detect(filename); got != want {
+			t.Errorf("expected %s for %q, got %s", want, filename, got)
+		}
+	}
+}
